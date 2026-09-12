@@ -1,0 +1,30 @@
+# Build context hygiene. Anything matched here never enters the build
+# context, so it can't land in a layer and can't bust the dependency cache.
+
+# --- secrets: must never enter the build context, let alone a layer ---
+.env
+.env.local
+.env.example
+*.env
+
+# --- VCS + CI: no runtime value, and .git can be large ---
+.git/
+.github/
+.gitignore
+
+# --- Python caches + local virtualenv: host-built, not portable ---
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.venv/
+
+# --- dev-only, no production purpose, pure bloat ---
+tests/
+docs/
+*.md
+verify.sh
+
+# --- sibling projects / vendored deps ---
+epoch-cluster/
+node_modules/
